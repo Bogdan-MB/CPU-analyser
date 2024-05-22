@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import psutil
 import cpuinfo
+import clr
 
 class myCPU:
     name = cpuinfo.get_cpu_info()['brand_raw']
