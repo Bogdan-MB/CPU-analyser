@@ -62,7 +62,7 @@ class myCPU:
         for x in range(len(self.loadPerCore)):
             print("Core#", x + 1, " %.2f" % self.loadPerCore[x], end = " ")
         print()
-        print("Time since epoch: ", self.bootTime[1], " approximately ", self.bootTime[0])
+        print("Time since epoch: ", self.bootTime[0], " approximately ", self.bootTime[1])
     def refreshValues(self): #for updating values
         self.freq = tuple(psutil.cpu_freq())
         self.percentUsage = psutil.cpu_percent(interval = 0.1)
