@@ -71,16 +71,17 @@ class myCPU:
         self.bootTime = psutil.boot_time()
         self.loadPerCore = getLoads(c)
         self.bootTime = [psutil.boot_time(), datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")]
+    def printWindow(self):
+        while True:
+            self.print()
+            self.refreshValues()
+            time.sleep(2)
+            os.system(clear)
 def main():
     if not pyuac.isUserAdmin():
         pyuac.runAsAdmin()
     cpu = myCPU()
     cpu.refreshValues()
-    while True:
-        cpu.print()
-        cpu.refreshValues()
-        time.sleep(2)
-        os.system(clear)
 if __name__ == "__main__":
      main()
      import interface
