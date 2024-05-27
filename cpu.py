@@ -32,6 +32,11 @@ def getLoads(c):
         c.Hardware[0].Update()
     return loads
 
+def convertTime(val):
+    mm, ss = divmod(val, 60)
+    hh, mm = divmod(mm, 60)
+    return "%d:%02d:%02d" % (hh, mm, ss)
+
 class myCPU:
     name = cpuinfo.get_cpu_info()['brand_raw']
     users = psutil.users()
@@ -43,6 +48,13 @@ class myCPU:
     averageLoad = psutil.getloadavg() #list with average load from 5, 10, and 15m since the program started
     loadPerCore = getLoads(c) #load per core
     bootTime = [psutil.boot_time(), datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")] #boot time since last epoch
+    battery = tuple(psutil.sensors_battery()) #tuple with battery percentage, seconds left and if it's plugged in
+    def get_battery_percent(self):
+        self.battery = tuple(psutil.sensors_battery())
+        return self.battery[0]
+    def get_battery_time(self):
+        self.battery = tuple(psutil.sensors_battery())
+        return convertTime(self.battery[1])
     def get_freq(self):
         self.freq = psutil.cpu_freq()
         return self.freq
@@ -65,7 +77,7 @@ class myCPU:
         print("Name: ", self.name)
         print("CPU users: ", end = "")
         for user in self.users:
-            print(user[0], end = " ")
+            print(user, end = " ")
         print()
         print("Logical Cores: ", self.logicalCores)
         print("Physical Cores: ", self.physicalCores)
@@ -80,6 +92,7 @@ class myCPU:
         for x in range(len(self.loadPerCore)):
             print("Core#", x + 1, " %.2f" % self.loadPerCore[x], end = " ")
         print()
+        print("Battery status: ", self.get_battery_percent(), "% with ", self.get_battery_time(), "time left, plugged in: ", self.battery[2])
         print("Time since epoch: ", self.bootTime[0], " approximately ", self.bootTime[1])
     def refreshValues(self): #for updating values
         self.freq = tuple(psutil.cpu_freq())
@@ -89,6 +102,7 @@ class myCPU:
         self.bootTime = psutil.boot_time()
         self.loadPerCore = getLoads(c)
         self.bootTime = [psutil.boot_time(), datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")]
+        self.battery = tuple(psutil.sensors_battery())
     def printWindow(self):
         while True:
             if not pyuac.isUserAdmin():
