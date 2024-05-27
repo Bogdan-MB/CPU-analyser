@@ -1,11 +1,12 @@
 import tkinter as tk
+from tkinter.ttk import Progressbar, Style
 from PIL import Image, ImageTk
 
 root = tk.Tk()
 root.geometry('700x400')
 root.title('PyCPU Monitor')
 root.resizable(False, False)
-title_font=('Segoe UI Semibold',30)
+title_font = ('Segoe UI Semibold', 30)
 
 def set_background(frame, image_path):
     image = Image.open(image_path)
@@ -16,63 +17,104 @@ def set_background(frame, image_path):
     bg_label.image = bg_image
     bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+def bar(progress):
+    import time
+    progress['value'] = 20
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value'] = 40
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value'] = 50
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value'] = 60
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value'] = 80
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value'] = 100
+
+def start_progress_bar(frame):
+
+    style = Style()
+    style.theme_use('default')
+    style.configure("blue.Horizontal.TProgressbar", troughcolor='#050A30', background='#20E5F6', thickness=30)
+
+    progress = Progressbar(frame, orient=tk.HORIZONTAL, length=300, mode='determinate', style='blue.Horizontal.TProgressbar')
+    progress.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+    bar(progress)
+
 def home_page():
-    home_frame= tk.Frame(main_frame)
-    set_background(home_frame,'homedesign.png')
-    lb = tk.Label(home_frame, text='PyCPU Monitor', font=title_font, fg='#20E5F6',bg='#050A30')
+    home_frame = tk.Frame(main_frame)
+    set_background(home_frame, 'homedesign.png')
+    lb = tk.Label(home_frame, text='PyCPU Monitor', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     home_frame.pack(fill='both', expand=True)
-    
 
 def page1_page():
-    page1_frame= tk.Frame(main_frame)
-    set_background(page1_frame,'pagedesign.png')
-    lb = tk.Label(page1_frame, text='Frequency', font=title_font, fg='#20E5F6',bg='#050A30')
+    page1_frame = tk.Frame(main_frame)
+    set_background(page1_frame, 'pagedesign.png')
+    lb = tk.Label(page1_frame, text='Frequency', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     page1_frame.pack(fill='both', expand=True)
+    start_progress_bar(page1_frame)
+
 
 def page2_page():
-    page2_frame= tk.Frame(main_frame)
-    set_background(page2_frame,'pagedesign.png')
-    lb = tk.Label(page2_frame, text='CPU utilization', font=title_font, fg='#20E5F6',bg='#050A30')
+    page2_frame = tk.Frame(main_frame)
+    set_background(page2_frame, 'pagedesign.png')
+    lb = tk.Label(page2_frame, text='CPU utilization', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     page2_frame.pack(fill='both', expand=True)
+    start_progress_bar(page2_frame)
 
 def page3_page():
-    page3_frame= tk.Frame(main_frame)
-    set_background(page3_frame,'pagedesign.png')
-    lb = tk.Label(page3_frame, text='Core utilization', font=title_font, fg='#20E5F6',bg='#050A30')
+    page3_frame = tk.Frame(main_frame)
+    set_background(page3_frame, 'pagedesign.png')
+    lb = tk.Label(page3_frame, text='Core utilization', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     page3_frame.pack(fill='both', expand=True)
+    start_progress_bar(page3_frame)
 
 def page4_page():
-    page4_frame= tk.Frame(main_frame)
-    set_background(page4_frame,'pagedesign.png')
-    lb = tk.Label(page4_frame, text='Load', font=title_font, fg='#20E5F6',bg='#050A30')
+    page4_frame = tk.Frame(main_frame)
+    set_background(page4_frame, 'pagedesign.png')
+    lb = tk.Label(page4_frame, text='Load', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     page4_frame.pack(fill='both', expand=True)
+    start_progress_bar(page4_frame)
 
 def page5_page():
-    page5_frame= tk.Frame(main_frame)
-    set_background(page5_frame,'pagedesign.png')
-    lb = tk.Label(page5_frame, text='Temperature', font=title_font, fg='#20E5F6',bg='#050A30')
+    page5_frame = tk.Frame(main_frame)
+    set_background(page5_frame, 'pagedesign.png')
+    lb = tk.Label(page5_frame, text='Temperature', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     page5_frame.pack(fill='both', expand=True)
+    start_progress_bar(page5_frame)
 
 def page6_page():
-    page6_frame= tk.Frame(main_frame)
-    set_background(page6_frame,'pagedesign.png')
-    lb = tk.Label(page6_frame, text='Power of consumption', font=title_font, fg='#20E5F6',bg='#050A30')
+    page6_frame = tk.Frame(main_frame)
+    set_background(page6_frame, 'pagedesign.png')
+    lb = tk.Label(page6_frame, text='Power of consumption', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     page6_frame.pack(fill='both', expand=True)
+    start_progress_bar(page6_frame)
 
 def page7_page():
-    page7_frame= tk.Frame(main_frame)
-    set_background(page7_frame,'pagedesign.png')
-    lb = tk.Label(page7_frame, text='Speed', font=title_font, fg='#20E5F6',bg='#050A30')
+    page7_frame = tk.Frame(main_frame)
+    set_background(page7_frame, 'pagedesign.png')
+    lb = tk.Label(page7_frame, text='Speed', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     page7_frame.pack(fill='both', expand=True)
-
+    start_progress_bar(page7_frame)
 def hide_indicators():
     home_indicate.config(bg='#c3c3c3')
     page1_indicate.config(bg='#c3c3c3')
