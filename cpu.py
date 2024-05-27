@@ -91,6 +91,8 @@ class myCPU:
         self.bootTime = [psutil.boot_time(), datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")]
     def printWindow(self):
         while True:
+            if not pyuac.isUserAdmin():
+                pyuac.runAsAdmin()
             self.print()
             self.refreshValues()
             time.sleep(2)
