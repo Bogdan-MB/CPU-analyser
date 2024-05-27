@@ -107,37 +107,59 @@ def set_background(frame, image_path):
     bg_label.image = bg_image
     bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-def update_progress_bar(progress, value=0):
-    if progress.active: 
-        if value > 100:
-            return
-        progress['value'] = value
-        progress.after(500, update_progress_bar, progress, value + 20)
+def update_progress_bar(progress, max_value=100):
+    def update():
+        if not progress.winfo_exists():
+            return  
 
-def start_progress_bar(frame):
+        current_value = progress['value']
+        if current_value < max_value:
+            progress['value'] = current_value + 10
+        else:
+            progress['value'] = 0  
+
+        if progress.active:
+            progress.after(500, update)
+
+    update()
+
+
+def start_progress_bar(frame, style_name="blue.Horizontal.TProgressbar"):
     style = Style()
     style.theme_use('default')
-    style.configure("blue.Horizontal.TProgressbar", troughcolor='#050A30', background='#20E5F6', thickness=30)
+    style.configure(style_name, troughcolor='#050A30', background='#20E5F6', thickness=30)
 
-    progress = Progressbar(frame, orient=tk.HORIZONTAL, length=300, mode='determinate', style='blue.Horizontal.TProgressbar')
+    progress = Progressbar(frame, orient=tk.HORIZONTAL, length=300, mode='determinate', style=style_name)
     progress.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-    progress.active = True 
+    progress.active = True
 
     update_progress_bar(progress)
     return progress
+
 
 def update_labels(labels, values):
     for label, value in zip(labels, values):
         label.config(text=str(value))
 
+current_frame = None
+
 def home_page():
+    global current_frame
+    if current_frame:
+        current_frame.destroy()
+
     home_frame = tk.Frame(main_frame)
     set_background(home_frame, 'homedesign.png')
     lb = tk.Label(home_frame, text='PyCPU Monitor', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
     home_frame.pack(fill='both', expand=True)
+    current_frame = home_frame
 
 def page1_page():
+    global current_frame
+    if current_frame:
+        current_frame.destroy()
+
     page1_frame = tk.Frame(main_frame)
     set_background(page1_frame, 'pagedesign.png')
     lb = tk.Label(page1_frame, text='Frequency', font=title_font, fg='#20E5F6', bg='#050A30')
@@ -146,15 +168,27 @@ def page1_page():
     freq_label = tk.Label(page1_frame, font=('Arial', 12), bg='#050A30', fg='#20E5F6')
     freq_label.pack(pady=20)
 
+    freq_progress = start_progress_bar(page1_frame, "green.Horizontal.TProgressbar")
+
     def update_freq():
+        if not page1_frame.active:
+            return
         cpu.refreshValues()
-        freq_label.config(text=f"Frequency: {cpu.get_freq()[0]:.2f} GHz")
+        freq = cpu.get_freq()[0]
+        freq_label.config(text=f"Frequency: {freq:.2f} GHz")
+        freq_progress['value'] = (freq / cpu.freq.max) * 100  
         root.after(500, update_freq)
-    
+
+    page1_frame.active = True
     update_freq()
     page1_frame.pack(fill='both', expand=True)
+    current_frame = page1_frame
 
 def page2_page():
+    global current_frame
+    if current_frame:
+        current_frame.destroy()
+
     page2_frame = tk.Frame(main_frame)
     set_background(page2_frame, 'pagedesign.png')
     lb = tk.Label(page2_frame, text='CPU utilization', font=title_font, fg='#20E5F6', bg='#050A30')
@@ -163,15 +197,27 @@ def page2_page():
     utilization_label = tk.Label(page2_frame, font=('Arial', 12), bg='#050A30', fg='#20E5F6')
     utilization_label.pack(pady=20)
 
+    utilization_progress = start_progress_bar(page2_frame, "blue.Horizontal.TProgressbar")
+
     def update_utilization():
+        if not page2_frame.active:
+            return
         cpu.refreshValues()
-        utilization_label.config(text=f"CPU Utilization: {cpu.get_percentage_usage():.2f}%")
+        utilization = cpu.get_percentage_usage()
+        utilization_label.config(text=f"CPU Utilization: {utilization:.2f}%")
+        utilization_progress['value'] = utilization
         root.after(500, update_utilization)
-    
+
+    page2_frame.active = True
     update_utilization()
     page2_frame.pack(fill='both', expand=True)
+    current_frame = page2_frame
 
 def page3_page():
+    global current_frame
+    if current_frame:
+        current_frame.destroy()
+
     page3_frame = tk.Frame(main_frame)
     set_background(page3_frame, 'pagedesign.png')
     lb = tk.Label(page3_frame, text='Core utilization', font=title_font, fg='#20E5F6', bg='#050A30')
@@ -191,8 +237,13 @@ def page3_page():
     
     update_core_utilization()
     page3_frame.pack(fill='both', expand=True)
+    current_frame = page3_frame
 
 def page4_page():
+    global current_frame
+    if current_frame:
+        current_frame.destroy()
+
     page4_frame = tk.Frame(main_frame)
     set_background(page4_frame, 'pagedesign.png')
     lb = tk.Label(page4_frame, text='Load', font=title_font, fg='#20E5F6', bg='#050A30')
@@ -222,15 +273,20 @@ def page4_page():
     update_load()
     update_core_load()
     page4_frame.pack(fill='both', expand=True)
+    current_frame = page4_frame
 
 def page5_page():
+    global current_frame
+    if current_frame:
+        current_frame.destroy()
+
     page5_frame = tk.Frame(main_frame)
     set_background(page5_frame, 'pagedesign.png')
     lb = tk.Label(page5_frame, text='General', font=title_font, fg='#20E5F6', bg='#050A30')
     lb.pack()
 
     all_label = tk.Label(page5_frame, font=('Arial', 12), bg='#050A30', fg='#20E5F6')
-    all_label.pack(pady=20)
+    all_label.pack(pady=20,padx=20)
 
     def update_general():
         cpu.refreshValues()
@@ -240,6 +296,7 @@ def page5_page():
     
     update_general()
     page5_frame.pack(fill='both', expand=True)
+    current_frame = page5_frame
 
 
 def hide_indicators():
@@ -258,6 +315,10 @@ def indicate(lb, page):
     hide_indicators()
     lb.config(bg='#158aff')
     delete_pages()
+
+    if current_frame and hasattr(current_frame, 'active'):
+        current_frame.active = False
+
     page()
 
 options_frame = tk.Frame(root, bg='#050929')
