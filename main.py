@@ -87,7 +87,7 @@ class myCPU:
 
 
 import tkinter as tk
-from tkinter import *
+from tkinter import font
 from tkinter.ttk import Progressbar, Style
 from PIL import Image, ImageTk
 
@@ -170,7 +170,7 @@ def page1_page():
     freq_label = tk.Label(page1_frame, font=('Arial', 12), bg='#050A30', fg='#20E5F6')
     freq_label.pack(pady=20)
 
-    freq_progress = start_progress_bar(page1_frame, "green.Horizontal.TProgressbar")
+    freq_progress = start_progress_bar(page1_frame, "blue.Horizontal.TProgressbar")
 
     def update_freq():
         if not page1_frame.active:
@@ -325,37 +325,39 @@ def indicate(lb, page):
 
 options_frame = tk.Frame(root, bg='#050929')
 
-home_btn = tk.Button(options_frame, text='Home', font=('Bolt', 12), fg='#335f73', bd=0, bg='#c3c3c3', command=lambda: indicate(home_indicate, home_page))
+btnFont = font.Font(family="Arial", size=12, weight="bold")
+
+home_btn = tk.Button(options_frame, text='Home', font=btnFont, fg='#073246', bd=0, bg='#c3c3c3', command=lambda: indicate(home_indicate, home_page))
 home_btn.place(x=10, y=10)
 
 home_indicate = tk.Label(options_frame, text='', bg='#335f73')
 home_indicate.place(x=3, y=10, width=5, height=40)
 
-page1_btn = tk.Button(options_frame, text='Frequency', font=('Bolt', 12), fg='#335f73', bd=0, bg='#c3c3c3', command=lambda: indicate(page1_indicate, page1_page))
+page1_btn = tk.Button(options_frame, text='Frequency', font=btnFont, fg='#073246', bd=0, bg='#c3c3c3', command=lambda: indicate(page1_indicate, page1_page))
 page1_btn.place(x=10, y=60)
 
 page1_indicate = tk.Label(options_frame, text='', bg='#335f73')
 page1_indicate.place(x=3, y=60, width=5, height=40)
 
-page2_btn = tk.Button(options_frame, text='CPU utilization', font=('Bolt', 12), fg='#335f73', bd=0, bg='#c3c3c3', command=lambda: indicate(page2_indicate, page2_page))
+page2_btn = tk.Button(options_frame, text='CPU utilization', font=btnFont, fg='#073246', bd=0, bg='#c3c3c3', command=lambda: indicate(page2_indicate, page2_page))
 page2_btn.place(x=10, y=110)
 
 page2_indicate = tk.Label(options_frame, text='', bg='#335f73')
 page2_indicate.place(x=3, y=110, width=5, height=40)
 
-page3_btn = tk.Button(options_frame, text='Core utilization', font=('Bolt', 12), fg='#335f73', bd=0, bg='#c3c3c3', command=lambda: indicate(page3_indicate, page3_page))
+page3_btn = tk.Button(options_frame, text='Core utilization', font=btnFont, fg='#073246', bd=0, bg='#c3c3c3', command=lambda: indicate(page3_indicate, page3_page))
 page3_btn.place(x=10, y=160)
 
 page3_indicate = tk.Label(options_frame, text='', bg='#335f73')
 page3_indicate.place(x=3, y=160, width=5, height=40)
 
-page4_btn = tk.Button(options_frame, text='Load & Core loads', font=('Bolt', 12), fg='#335f73', bd=0, bg='#c3c3c3', command=lambda: indicate(page4_indicate, page4_page))
+page4_btn = tk.Button(options_frame, text='Load & Core loads', font=btnFont, fg='#073246', bd=0, bg='#c3c3c3', command=lambda: indicate(page4_indicate, page4_page))
 page4_btn.place(x=10, y=210)
 
 page4_indicate = tk.Label(options_frame, text='', bg='#335f73')
 page4_indicate.place(x=3, y=210, width=5, height=40)
 
-page5_btn = tk.Button(options_frame, text='Generals', font=('Bolt', 12), fg='#335f73', bd=0, bg='#c3c3c3', command=lambda: indicate(page5_indicate, page5_page))
+page5_btn = tk.Button(options_frame, text='Generals', font=btnFont, fg='#073246', bd=0, bg='#c3c3c3', command=lambda: indicate(page5_indicate, page5_page))
 page5_btn.place(x=10, y=260)
 
 page5_indicate = tk.Label(options_frame, text='', bg='#335f73')
