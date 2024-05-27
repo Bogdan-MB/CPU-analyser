@@ -42,7 +42,25 @@ class myCPU:
     percentUsagePerCore = (psutil.cpu_percent(percpu=True)) #list of percentage of usage for each core on a CPU
     averageLoad = psutil.getloadavg() #list with average load from 5, 10, and 15m since the program started
     loadPerCore = getLoads(c) #load per core
-    bootTime = [psutil.boot_time(), datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")]
+    bootTime = [psutil.boot_time(), datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")] #boot time since last epoch
+    def get_freq(self):
+        self.freq = psutil.cpu_freq()
+        return self.freq
+    def get_percentage_usage(self):
+        self.percentUsage = psutil.cpu_percent(interval = 0.1)
+        return self.percentUsage
+    def get_percent_per_core(self):
+        self.percentUsagePerCore = psutil.cpu_percent(percpu= True)
+        return self.percentUsagePerCore
+    def get_avg_load(self):
+        self.averageLoad = psutil.getloadavg()
+        return self.averageLoad
+    def get_load_per_core(self):
+        self.loadPerCore = getLoads(c)
+        return self.loadPerCore
+    def get_boot_time(self):
+        self.bootTime = [psutil.boot_time(), datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")]
+        return self.bootTime
     def print(self):
         print("Name: ", self.name)
         print("CPU users: ", end = "")
@@ -77,11 +95,3 @@ class myCPU:
             self.refreshValues()
             time.sleep(2)
             os.system(clear)
-def main():
-    if not pyuac.isUserAdmin():
-        pyuac.runAsAdmin()
-    cpu = myCPU()
-    cpu.refreshValues()
-if __name__ == "__main__":
-     main()
-     import interface

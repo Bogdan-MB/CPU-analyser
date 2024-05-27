@@ -1,5 +1,8 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import cpu as CPU
+
+cpu = CPU.myCPU()
 
 root = tk.Tk()
 root.geometry('700x400')
