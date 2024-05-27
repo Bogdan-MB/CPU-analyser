@@ -87,6 +87,7 @@ class myCPU:
 
 
 import tkinter as tk
+from tkinter import *
 from tkinter.ttk import Progressbar, Style
 from PIL import Image, ImageTk
 
@@ -154,6 +155,7 @@ def home_page():
     lb.pack()
     home_frame.pack(fill='both', expand=True)
     current_frame = home_frame
+
 
 def page1_page():
     global current_frame
@@ -369,5 +371,5 @@ set_background(main_frame, 'homedesign.png')
 main_frame.pack(side=tk.LEFT)
 main_frame.pack_propagate(False)
 main_frame.configure(height=400, width=700)
-
+home_page()
 root.mainloop()
