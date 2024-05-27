@@ -77,14 +77,14 @@ def page7_page():
     page7_frame.pack(fill='both', expand=True)
 
 def hide_indicators():
-    home_indicate.config(bg='#c3c3c3')
-    page1_indicate.config(bg='#c3c3c3')
-    page2_indicate.config(bg='#c3c3c3')
-    page3_indicate.config(bg='#c3c3c3')
-    page4_indicate.config(bg='#c3c3c3')
-    page5_indicate.config(bg='#c3c3c3')
-    page6_indicate.config(bg='#c3c3c3')
-    page7_indicate.config(bg='#c3c3c3')
+    home_indicate.config(bg='#050929')
+    page1_indicate.config(bg='#050929')
+    page2_indicate.config(bg='#050929')
+    page3_indicate.config(bg='#050929')
+    page4_indicate.config(bg='#050929')
+    page5_indicate.config(bg='#050929')
+    page6_indicate.config(bg='#050929')
+    page7_indicate.config(bg='#050929')
 
 def delete_pages():
     for frame in main_frame.winfo_children():
