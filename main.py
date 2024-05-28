@@ -177,7 +177,7 @@ def page1_page():
             return
         cpu.refreshValues()
         freq = cpu.get_freq()[0]
-        freq_label.config(text=f"Frequency: {freq:.2f} GHz")
+        freq_label.config(text=f"Frequency: {freq:.2f} MHz")
         freq_progress['value'] = (freq / cpu.freq.max) * 100  
         root.after(500, update_freq)
 
