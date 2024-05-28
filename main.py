@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter.ttk import Progressbar, Style
 from PIL import Image, ImageTk
+from tkinter import font
 import psutil
 import cpuinfo
 import clr
@@ -84,12 +85,6 @@ class myCPU:
         )
         return info
 
-
-
-import tkinter as tk
-from tkinter import font
-from tkinter.ttk import Progressbar, Style
-from PIL import Image, ImageTk
 
 cpu = myCPU()
 
