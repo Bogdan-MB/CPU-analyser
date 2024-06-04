@@ -7,7 +7,6 @@ import cpuinfo
 import clr
 import sys
 import os
-import pyuac
 import time
 import datetime
 
